@@ -1,0 +1,239 @@
+/*
+ * Stile base — scheletro.
+ * La palette e la tipografia definitiva verranno dal design.
+ * Per ora: struttura, safe areas, e layout mobile.
+ */
+
+/* ── Reset & Base ── */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background-color: #FDF6EE;
+    color: #3D2E1F;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ── Safe Areas (notch iPhone, barra home) ── */
+body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+}
+
+/* ── Gate (accesso negato) ── */
+#gate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100dvh;
+    font-size: 2rem;
+}
+
+/* ── Sezioni comuni ── */
+section {
+    min-height: 100dvh;
+    padding: 3rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ── 1. Hero ── */
+.hero {
+    text-align: center;
+    position: relative;
+}
+
+.hero-names {
+    font-size: 1.75rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+    color: #5C3D2E;
+}
+
+.hero-date {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #A0755A;
+    letter-spacing: 0.1em;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    animation: breathe 2.5s ease-in-out infinite;
+}
+
+.scroll-indicator .chevron {
+    display: block;
+    transform: rotate(-90deg);
+    font-size: 1.5rem;
+    color: #C4A882;
+}
+
+@keyframes breathe {
+    0%, 100% { opacity: 0.3; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(8px); }
+}
+
+/* ── 2. Animazione ── */
+.animation-scene {
+    padding: 0;
+    position: relative;
+    background: linear-gradient(180deg, #D4E6F1 0%, #A8D5A2 80%, #8FBC8F 100%);
+}
+
+#animation-canvas {
+    width: 100%;
+    max-width: 375px;
+    aspect-ratio: 9 / 16;
+}
+
+/* Letterina easter egg */
+.letter-hidden {
+    display: none;
+}
+
+.letter-visible {
+    display: block;
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #FFF8EE;
+    border: 1px solid #D4B896;
+    border-radius: 4px;
+    padding: 1.5rem;
+    max-width: 280px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #5C3D2E;
+    animation: fadeIn 0.6s ease;
+}
+
+/* ── 3. Galleria ── */
+.gallery {
+    min-height: auto;
+    padding: 2rem 1rem;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 375px;
+}
+
+.photo-card img {
+    width: 100%;
+    border-radius: 12px;
+    display: block;
+}
+
+.photo-card .caption {
+    display: block;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #A0755A;
+    margin-top: 0.25rem;
+    font-style: italic;
+}
+
+/* ── 4. Poesie ── */
+.poems {
+    background-color: #FAF0E4;
+}
+
+.poem {
+    text-align: center;
+    max-width: 300px;
+    margin-bottom: 2.5rem;
+}
+
+.poem blockquote p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    font-style: italic;
+}
+
+.poem cite {
+    display: block;
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    color: #A0755A;
+    font-style: normal;
+}
+
+.poem-divider {
+    width: 40px;
+    height: 1px;
+    background: #D4B896;
+    margin: 0 auto 2.5rem;
+}
+
+/* ── 5. Le mie parole ── */
+.my-words {
+    min-height: auto;
+    padding: 3rem 1.5rem;
+}
+
+.note-card {
+    background: #FFF8EE;
+    border-radius: 4px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    max-width: 300px;
+    transform: rotate(var(--rotation, 0deg));
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #5C3D2E;
+}
+
+/* ── 6. Chiusura ── */
+.closing {
+    text-align: center;
+}
+
+.closing-text {
+    font-size: 1.4rem;
+    font-style: italic;
+    max-width: 280px;
+    line-height: 1.8;
+    color: #5C3D2E;
+}
+
+.heart-pulse {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    color: #D4736A;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
