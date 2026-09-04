@@ -1,0 +1,13 @@
+name = "anniversary-api"
+main = "src/index.js"
+compatibility_date = "2024-09-25"
+
+# R2 bucket binding
+[[r2_buckets]]
+binding = "PHOTOS"
+bucket_name = "anniversary-photos"
+
+[vars]
+ACCESS_TOKEN = "oXS7JtAoupGMfaToi4NN6kMFJGmw5-JTNusTzhzHxz0"
+# In produzione, usa wrangler secret per il token:
+# wrangler secret put ACCESS_TOKEN

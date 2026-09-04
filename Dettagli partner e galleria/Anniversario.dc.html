@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Nunito+Sans:wght@300;400;600&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; background: #eae3d6; }
+  body { font-family: 'Nunito Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; color: #3a2a24; }
+  a { color: #b7845f; text-decoration: none; }
+  a:hover { color: #8f5f42; }
+  /* paper grain */
+  @keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @keyframes chevron { 0%, 100% { transform: translateY(0); opacity: .5; } 50% { transform: translateY(6px); opacity: 1; } }
+  @keyframes heartbeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.18); } 30% { transform: scale(1); } 45% { transform: scale(1.12); } 60% { transform: scale(1); } }
+  @keyframes heartPulse { 0% { transform: scale(.6); opacity: 0; } 40% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(1.8); opacity: 0; } }
+  @keyframes letterFall { 0% { transform: translate(0,-20px) rotate(-4deg); } 50% { transform: translate(10px, 10px) rotate(6deg); } 100% { transform: translate(-4px, 40px) rotate(-2deg); } }
+  @keyframes ribbon { 0%, 100% { transform: rotate(-1deg); } 50% { transform: rotate(1deg); } }
+  @keyframes slowSway { 0%, 100% { transform: rotate(-.6deg); } 50% { transform: rotate(.6deg); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes shimmer { 0%, 100% { opacity: .35; } 50% { opacity: .9; } }
+</style>
+</helmet>
+
+<!-- Mobile canvas: single 375-wide column, long scroll -->
+<div style="width: 375px; margin: 0 auto; background: #f7ede2; position: relative; overflow: hidden; box-shadow: 0 30px 90px rgba(58,42,36,.18); font-family: 'Nunito Sans', system-ui, sans-serif; color: #3a2a24;">
+
+  <!-- Paper grain overlay across the whole page -->
+  <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="paperGrain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7"></feTurbulence>
+      <feColorMatrix values="0 0 0 0 0.3   0 0 0 0 0.2   0 0 0 0 0.16   0 0 0 0.08 0"></feColorMatrix>
+    </filter>
+    <filter id="softGrain">
+      <feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="1" seed="3"></feTurbulence>
+      <feColorMatrix values="0 0 0 0 0.35   0 0 0 0 0.24   0 0 0 0 0.18   0 0 0 0.05 0"></feColorMatrix>
+    </filter>
+  </svg>
+
+  <!-- ============= 1. HERO ============= -->
+  <section style="position: relative; height: 812px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 32px; background: linear-gradient(180deg, #f8ede1 0%, #f6e5d5 55%, #f2dcc9 100%); overflow: hidden;">
+    <!-- Safe area top (notch) -->
+    <div style="position:absolute; top:0; left:0; right:0; height:44px; pointer-events:none;"></div>
+    <!-- Dynamic Island -->
+    <div style="position:absolute; top:11px; left:50%; transform: translateX(-50%); width:120px; height:34px; background:#141414; border-radius:22px; opacity:.92;"></div>
+
+    <!-- Grain -->
+    <div style="position:absolute; inset:0; filter: url(#paperGrain); opacity:.5; mix-blend-mode: multiply; pointer-events:none;"></div>
+
+    <!-- Ornament: gold circle -->
+    <div style="position:absolute; top:130px; left:50%; transform:translateX(-50%); width: 220px; height: 220px; border: 1px solid rgba(201,169,110,.35); border-radius: 50%;"></div>
+    <div style="position:absolute; top:150px; left:50%; transform:translateX(-50%); width: 180px; height: 180px; border: 1px dashed rgba(201,169,110,.28); border-radius: 50%; animation: slowSway 8s ease-in-out infinite;"></div>
+
+    <!-- Little floral flourish -->
+    <svg width="80" height="24" viewBox="0 0 80 24" style="position: relative; z-index: 2; margin-bottom: 24px; opacity: .8;">
+      <path d="M2 12 Q 20 4, 40 12 T 78 12" stroke="#c9a96e" stroke-width="1" fill="none" stroke-linecap="round"></path>
+      <circle cx="40" cy="12" r="2.5" fill="#c9a96e"></circle>
+      <circle cx="12" cy="12" r="1.2" fill="#c9a96e" opacity=".7"></circle>
+      <circle cx="68" cy="12" r="1.2" fill="#c9a96e" opacity=".7"></circle>
+    </svg>
+
+    <!-- Names -->
+    <h1 style="font-family: 'Cormorant Garamond', 'Playfair Display', serif; font-weight: 400; font-size: 46px; line-height: 1.05; letter-spacing: .5px; text-align: center; margin: 0; color: #3a2a24; position: relative; z-index: 2;">
+      Valentino
+      <span style="display: block; font-family: 'Caveat', cursive; font-size: 36px; font-weight: 500; color: #c9a96e; margin: 6px 0 4px; letter-spacing: 0; line-height: 1;">&amp;</span>
+      Melissa
+    </h1>
+
+    <!-- Divider -->
+    <div style="width: 60px; height: 1px; background: linear-gradient(90deg, transparent, #c9a96e, transparent); margin: 40px 0 22px; position: relative; z-index: 2;"></div>
+
+    <!-- Date -->
+    <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: 22px; letter-spacing: 1.2px; margin: 0; color: #7a5a4a; position: relative; z-index: 2;">
+      5 settembre
+    </p>
+
+    <!-- Scroll indicator -->
+    <div style="position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 2;">
+      <span style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 12px; letter-spacing: 3px; color: rgba(122,90,74,.55); text-transform: uppercase;">scorri</span>
+      <svg width="14" height="20" viewBox="0 0 14 20" style="animation: chevron 2s ease-in-out infinite;">
+        <path d="M2 4 L7 10 L12 4 M2 10 L7 16 L12 10" stroke="#b7845f" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============= 2. ANIMAZIONE — CAVALIERE E PRINCIPESSA ============= -->
+  <section style="position: relative; padding: 60px 0 40px; background: linear-gradient(180deg, #f2dcc9 0%, #f5e0cb 30%, #efd6bd 100%); overflow: hidden;">
+    <div style="position:absolute; inset:0; filter: url(#softGrain); opacity:.4; mix-blend-mode: multiply; pointer-events:none;"></div>
+
+    <!-- Section header -->
+    <div style="text-align: center; padding: 0 32px; margin-bottom: 32px; position: relative;">
+      <p style="font-family: 'Caveat', cursive; font-size: 22px; color: #b7845f; margin: 0 0 4px; transform: rotate(-2deg);">c'era una volta</p>
+      <h2 style="font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 30px; line-height: 1.1; margin: 0; color: #3a2a24;">Il cavaliere<br><em style="color:#c9a96e;">e</em> la principessa</h2>
+    </div>
+
+    <!-- MAIN SCENE — key frame: the kiss -->
+    <div style="position: relative; width: 375px; height: 380px; margin: 0 auto; overflow: hidden;">
+      <!-- Sky gradient -->
+      <div style="position:absolute; inset:0; background: linear-gradient(180deg, #fbe8d4 0%, #f6d9be 60%, transparent 100%);"></div>
+
+      <!-- Soft clouds -->
+      <svg width="375" height="380" viewBox="0 0 375 380" style="position:absolute; inset:0;">
+        <g fill="#ffffff" opacity=".55">
+          <ellipse cx="60" cy="60" rx="34" ry="10"></ellipse>
+          <ellipse cx="80" cy="55" rx="20" ry="8"></ellipse>
+          <ellipse cx="300" cy="90" rx="40" ry="11"></ellipse>
+          <ellipse cx="325" cy="84" rx="22" ry="8"></ellipse>
+          <ellipse cx="180" cy="40" rx="28" ry="8"></ellipse>
+        </g>
+        <!-- Sun (soft) -->
+        <circle cx="320" cy="55" r="26" fill="#f9d69b" opacity=".65"></circle>
+
+        <!-- Distant hills -->
+        <path d="M0 300 Q 90 260 180 285 T 375 275 L 375 380 L 0 380 Z" fill="#c8a887" opacity=".45"></path>
+        <path d="M0 320 Q 100 290 200 310 T 375 305 L 375 380 L 0 380 Z" fill="#a68863" opacity=".35"></path>
+
+        <!-- Grass -->
+        <rect x="0" y="330" width="375" height="50" fill="#a3b884"></rect>
+        <path d="M0 330 Q 50 322 100 328 T 200 326 T 300 328 T 375 325 L 375 335 L 0 335 Z" fill="#8fa872"></path>
+        <!-- Grass tufts -->
+        <g stroke="#7a9560" stroke-width="1.2" stroke-linecap="round" fill="none">
+          <path d="M20 340 L 22 334"></path><path d="M25 340 L 27 335"></path>
+          <path d="M90 342 L 92 336"></path><path d="M95 342 L 97 337"></path>
+          <path d="M270 340 L 272 334"></path><path d="M275 340 L 277 335"></path>
+          <path d="M340 342 L 342 336"></path><path d="M345 342 L 347 337"></path>
+        </g>
+        <!-- Flowers -->
+        <g>
+          <circle cx="40" cy="345" r="2" fill="#e8a5a8"></circle>
+          <circle cx="115" cy="348" r="2" fill="#f0c15a"></circle>
+          <circle cx="285" cy="346" r="2" fill="#e8a5a8"></circle>
+          <circle cx="355" cy="348" r="2" fill="#f0c15a"></circle>
+        </g>
+      </svg>
+
+      <!-- The Tower (centered) -->
+      <div style="position:absolute; left:50%; bottom:50px; transform: translateX(-50%); width: 130px; height: 260px;">
+        <!-- roof cone -->
+        <svg width="150" height="80" viewBox="0 0 150 80" style="position:absolute; top:-40px; left:-10px;">
+          <path d="M75 4 L 140 74 L 10 74 Z" fill="#c56b5a"></path>
+          <path d="M75 4 L 140 74 L 75 74 Z" fill="#a35245" opacity=".6"></path>
+          <!-- flag -->
+          <line x1="75" y1="4" x2="75" y2="-16" stroke="#8b6f47" stroke-width="1.5"></line>
+          <path d="M75 -16 L 88 -12 L 75 -8 Z" fill="#e8a5a8"></path>
+          <!-- little heart on flag -->
+          <path d="M78 -14 c 0 -1.5, 2 -1.5, 2 0 c 0 1, -2 2, -2 2 c 0 0, -2 -1, -2 -2 c 0 -1.5, 2 -1.5, 2 0 z" fill="#c56b5a" transform="translate(0,2)"></path>
+        </svg>
+        <!-- battlements -->
+        <div style="position:absolute; top:36px; left:0; width:130px; height: 22px; background: repeating-linear-gradient(90deg, #e6c9a0 0, #e6c9a0 12px, transparent 12px, transparent 22px);"></div>
+        <!-- tower body -->
+        <div style="position:absolute; top:58px; left:8px; width: 114px; height: 202px; background: linear-gradient(180deg, #eecfa2 0%, #d8b184 100%); border-radius: 4px 4px 0 0; box-shadow: inset -8px 0 0 rgba(0,0,0,.06), inset 4px 0 0 rgba(255,255,255,.15);"></div>
+        <!-- brick lines -->
+        <svg width="114" height="202" viewBox="0 0 114 202" style="position:absolute; top:58px; left:8px; opacity:.35;">
+          <g stroke="#8b6f47" stroke-width=".6" fill="none">
+            <line x1="0" y1="30" x2="114" y2="30"></line>
+            <line x1="0" y1="60" x2="114" y2="60"></line>
+            <line x1="0" y1="90" x2="114" y2="90"></line>
+            <line x1="0" y1="120" x2="114" y2="120"></line>
+            <line x1="0" y1="150" x2="114" y2="150"></line>
+            <line x1="0" y1="180" x2="114" y2="180"></line>
+            <line x1="30" y1="0" x2="30" y2="30"></line>
+            <line x1="60" y1="30" x2="60" y2="60"></line>
+            <line x1="90" y1="0" x2="90" y2="30"></line>
+            <line x1="20" y1="60" x2="20" y2="90"></line>
+            <line x1="80" y1="90" x2="80" y2="120"></line>
+            <line x1="45" y1="120" x2="45" y2="150"></line>
+          </g>
+        </svg>
+        <!-- small window mid -->
+        <div style="position:absolute; top:130px; left:52px; width: 26px; height: 34px; background: #4a3428; border-radius: 13px 13px 3px 3px; box-shadow: 0 0 0 2px #8b6f47;"></div>
+        <!-- door at bottom -->
+        <div style="position:absolute; bottom:0; left:47px; width: 36px; height: 54px; background: #6b4a3a; border-radius: 18px 18px 2px 2px; box-shadow: 0 0 0 2px #8b6f47;">
+          <div style="position:absolute; right:5px; top:28px; width:4px; height:4px; background: #c9a96e; border-radius:50%;"></div>
+        </div>
+
+        <!-- Characters on top of the tower — key frame: the KISS -->
+        <div style="position:absolute; top:8px; left:50%; transform: translateX(-50%); width: 100px; height: 60px; display: flex; align-items: flex-end; justify-content: center; gap: -6px;">
+          <!-- Knight (short, oversized armor) -->
+          <svg width="38" height="52" viewBox="0 0 38 52" style="margin-right:-8px;">
+            <!-- body/armor -->
+            <rect x="8" y="24" width="22" height="20" rx="4" fill="#b0b4bd"></rect>
+            <rect x="8" y="24" width="22" height="4" fill="#8f9299"></rect>
+            <!-- shoulders (too big) -->
+            <ellipse cx="8" cy="26" rx="6" ry="4" fill="#8f9299"></ellipse>
+            <ellipse cx="30" cy="26" rx="6" ry="4" fill="#8f9299"></ellipse>
+            <!-- head/helmet -->
+            <rect x="10" y="6" width="18" height="20" rx="8" fill="#b8bcc4"></rect>
+            <rect x="10" y="14" width="18" height="4" fill="#3a2a24"></rect>
+            <!-- plume -->
+            <path d="M18 6 Q 22 -2, 26 6" stroke="#c56b5a" stroke-width="3" fill="none" stroke-linecap="round"></path>
+            <!-- legs -->
+            <rect x="12" y="42" width="6" height="8" fill="#5a4436"></rect>
+            <rect x="20" y="42" width="6" height="8" fill="#5a4436"></rect>
+            <!-- cheek blush -->
+            <circle cx="14" cy="22" r="1.2" fill="#e8a5a8" opacity=".7"></circle>
+          </svg>
+          <!-- Princess -->
+          <svg width="34" height="56" viewBox="0 0 34 56" style="margin-left:-4px;">
+            <!-- dress -->
+            <path d="M8 28 L 4 52 L 30 52 L 26 28 Z" fill="#e8a5a8"></path>
+            <path d="M8 28 L 26 28 L 24 34 L 10 34 Z" fill="#c98590" opacity=".5"></path>
+            <!-- torso -->
+            <rect x="11" y="20" width="12" height="12" rx="3" fill="#f2c5c8"></rect>
+            <!-- neck -->
+            <rect x="15" y="16" width="4" height="4" fill="#f5d0b8"></rect>
+            <!-- head -->
+            <circle cx="17" cy="12" r="8" fill="#f5d0b8"></circle>
+            <!-- hair -->
+            <path d="M9 12 Q 9 4, 17 3 Q 25 4, 25 12 Q 25 8, 22 6 Q 17 5, 12 7 Q 9 9, 9 12 Z" fill="#5a3826"></path>
+            <path d="M9 12 Q 8 22, 12 26 L 10 26 Q 6 20, 9 12 Z" fill="#5a3826"></path>
+            <!-- crown -->
+            <path d="M12 5 L 14 2 L 16 5 L 18 2 L 20 5 L 22 2 L 22 6 L 12 6 Z" fill="#c9a96e"></path>
+            <circle cx="17" cy="4" r="1" fill="#e8a5a8"></circle>
+            <!-- blush -->
+            <circle cx="13" cy="14" r="1.2" fill="#e8a5a8" opacity=".8"></circle>
+            <circle cx="21" cy="14" r="1.2" fill="#e8a5a8" opacity=".8"></circle>
+          </svg>
+        </div>
+
+        <!-- Heart above them (pulsing) -->
+        <div style="position: absolute; top: -8px; left: 50%; transform: translateX(-50%); animation: heartbeat 1.8s ease-in-out infinite; z-index: 3;">
+          <svg width="34" height="30" viewBox="0 0 34 30">
+            <path d="M17 27 C 4 18, 2 8, 8 4 C 12 1, 16 4, 17 8 C 18 4, 22 1, 26 4 C 32 8, 30 18, 17 27 Z" fill="#e07a7a" stroke="#c56b5a" stroke-width="1"></path>
+            <ellipse cx="12" cy="10" rx="2" ry="3" fill="#fff" opacity=".5"></ellipse>
+          </svg>
+        </div>
+        <!-- pulsing halo -->
+        <div style="position:absolute; top:-16px; left:50%; transform: translateX(-50%); width:50px; height:50px; border: 2px solid #e07a7a; border-radius:50%; opacity:0; animation: heartPulse 1.8s ease-out infinite;"></div>
+        <!-- Tiny hearts confetti -->
+        <div style="position:absolute; top: 10px; left: 20%; animation: floatY 3s ease-in-out infinite;">
+          <svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 8 C 1 5, 1 2, 3 1 C 4 .5, 5 1.5, 5 3 C 5 1.5, 6 .5, 7 1 C 9 2, 9 5, 5 8 Z" fill="#c56b5a" opacity=".6"></path></svg>
+        </div>
+        <div style="position:absolute; top: 30px; right: 22%; animation: floatY 3.4s ease-in-out infinite .5s;">
+          <svg width="8" height="8" viewBox="0 0 10 10"><path d="M5 8 C 1 5, 1 2, 3 1 C 4 .5, 5 1.5, 5 3 C 5 1.5, 6 .5, 7 1 C 9 2, 9 5, 5 8 Z" fill="#e07a7a" opacity=".5"></path></svg>
+        </div>
+      </div>
+
+      <!-- Letterina falling — INTERACTIVE (tappable) -->
+      <button data-hidden-letter style="all: unset; cursor: pointer; position: absolute; right: 60px; bottom: 130px; animation: letterFall 4s ease-in-out infinite; z-index: 4; -webkit-tap-highlight-color: transparent;" aria-label="Apri il messaggio nascosto">
+        <div style="position: relative; width: 44px; height: 32px; background: #fff8ec; border: 1px solid #d8bfa5; border-radius: 3px; box-shadow: 0 4px 10px rgba(58,42,36,.15); transform: rotate(-6deg);">
+          <!-- envelope flap -->
+          <div style="position:absolute; inset:0; overflow:hidden; border-radius:3px;">
+            <div style="position:absolute; top:0; left:0; width:0; height:0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 16px solid #f5e6d3;"></div>
+          </div>
+          <!-- wax seal -->
+          <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 12px; height: 12px; background: radial-gradient(circle at 30% 30%, #d96a6a, #a04141); border-radius: 50%; box-shadow: 0 1px 2px rgba(0,0,0,.2);">
+            <div style="position:absolute; inset:2px; border: .5px solid rgba(255,255,255,.4); border-radius:50%;"></div>
+          </div>
+          <!-- tap hint -->
+          <span style="position: absolute; top: -22px; left: 50%; transform: translateX(-50%); font-family: 'Caveat', cursive; font-size: 14px; color: #b7845f; white-space: nowrap; animation: shimmer 2s ease-in-out infinite;">tocca ✨</span>
+        </div>
+      </button>
+
+    </div>
+
+    <!-- Storyboard strip -->
+    <div style="padding: 32px 24px 8px;">
+      <p style="font-family: 'Caveat', cursive; font-size: 18px; color: #b7845f; margin: 0 0 14px; text-align: center;">— piccolo storyboard —</p>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
+        <!-- Frame 1: princess throws rope -->
+        <div style="aspect-ratio: 1; background: #fbe8d4; border-radius: 10px; position: relative; overflow: hidden; border: 1px solid rgba(201,169,110,.3);">
+          <svg width="100%" height="100%" viewBox="0 0 60 60">
+            <rect x="0" y="45" width="60" height="15" fill="#a3b884"></rect>
+            <rect x="24" y="15" width="12" height="34" fill="#eecfa2"></rect>
+            <rect x="22" y="12" width="16" height="4" fill="#e6c9a0"></rect>
+            <path d="M30 6 L 36 15 L 24 15 Z" fill="#c56b5a"></path>
+            <circle cx="30" cy="15" r="3" fill="#e8a5a8"></circle>
+            <path d="M32 17 Q 40 30, 42 45" stroke="#8b6f47" stroke-width=".8" fill="none"></path>
+          </svg>
+          <span style="position:absolute; bottom:2px; left:4px; font-family: 'Caveat', cursive; font-size: 11px; color:#7a5a4a;">1</span>
+        </div>
+        <!-- Frame 2: knight falls -->
+        <div style="aspect-ratio: 1; background: #fbe8d4; border-radius: 10px; position: relative; overflow: hidden; border: 1px solid rgba(201,169,110,.3);">
+          <svg width="100%" height="100%" viewBox="0 0 60 60">
+            <rect x="0" y="45" width="60" height="15" fill="#a3b884"></rect>
+            <rect x="24" y="15" width="12" height="34" fill="#eecfa2"></rect>
+            <path d="M30 6 L 36 15 L 24 15 Z" fill="#c56b5a"></path>
+            <path d="M32 17 Q 30 30, 22 42" stroke="#8b6f47" stroke-width=".8" fill="none"></path>
+            <!-- falling knight -->
+            <g transform="translate(12 40) rotate(-30)">
+              <rect x="0" y="0" width="8" height="8" rx="2" fill="#b0b4bd"></rect>
+              <rect x="1" y="-4" width="6" height="5" rx="2" fill="#b8bcc4"></rect>
+            </g>
+            <!-- swoosh -->
+            <path d="M18 34 Q 14 40, 12 44" stroke="#c9a96e" stroke-width=".8" fill="none" stroke-dasharray="2 2"></path>
+          </svg>
+          <span style="position:absolute; bottom:2px; left:4px; font-family: 'Caveat', cursive; font-size: 11px; color:#7a5a4a;">2</span>
+        </div>
+        <!-- Frame 3: princess facepalm -->
+        <div style="aspect-ratio: 1; background: #fbe8d4; border-radius: 10px; position: relative; overflow: hidden; border: 1px solid rgba(201,169,110,.3);">
+          <svg width="100%" height="100%" viewBox="0 0 60 60">
+            <rect x="0" y="45" width="60" height="15" fill="#a3b884"></rect>
+            <rect x="24" y="15" width="12" height="34" fill="#eecfa2"></rect>
+            <path d="M30 6 L 36 15 L 24 15 Z" fill="#c56b5a"></path>
+            <circle cx="30" cy="13" r="4" fill="#f5d0b8"></circle>
+            <path d="M25 12 Q 30 8, 35 12" fill="#5a3826"></path>
+            <path d="M28 11 L 30 13 L 32 11" stroke="#c9a96e" stroke-width=".6" fill="none"></path>
+            <!-- hand on face -->
+            <ellipse cx="30" cy="14" rx="3" ry="2" fill="#f5d0b8"></ellipse>
+            <text x="42" y="14" font-family="Caveat, cursive" font-size="10" fill="#7a5a4a">.·°</text>
+          </svg>
+          <span style="position:absolute; bottom:2px; left:4px; font-family: 'Caveat', cursive; font-size: 11px; color:#7a5a4a;">4</span>
+        </div>
+        <!-- Frame 4: kiss (this frame) -->
+        <div style="aspect-ratio: 1; background: #fbe8d4; border-radius: 10px; position: relative; overflow: hidden; border: 1px solid #c9a96e; box-shadow: 0 0 0 2px rgba(201,169,110,.2);">
+          <svg width="100%" height="100%" viewBox="0 0 60 60">
+            <rect x="0" y="45" width="60" height="15" fill="#a3b884"></rect>
+            <rect x="24" y="15" width="12" height="34" fill="#eecfa2"></rect>
+            <path d="M30 6 L 36 15 L 24 15 Z" fill="#c56b5a"></path>
+            <circle cx="27" cy="13" r="3" fill="#b8bcc4"></circle>
+            <circle cx="33" cy="13" r="3" fill="#f5d0b8"></circle>
+            <path d="M30 4 C 27 6, 27 9, 30 10 C 33 9, 33 6, 30 4 Z" fill="#e07a7a"></path>
+          </svg>
+          <span style="position:absolute; bottom:2px; left:4px; font-family: 'Caveat', cursive; font-size: 11px; color:#7a5a4a;">9</span>
+          <span style="position: absolute; top: 3px; right: 4px; font-family: 'Caveat', cursive; font-size: 9px; color: #c9a96e; font-weight: 600;">★</span>
+        </div>
+      </div>
+      <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: #7a5a4a; margin: 14px 0 0; text-align: center; opacity: .8;">tocca la letterina per un segreto</p>
+    </div>
+  </section>
+
+  <!-- ============= HIDDEN MESSAGE OVERLAY ============= -->
+  <div data-letter-overlay style="position: fixed; inset: 0; background: rgba(58,42,36,.55); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 32px; z-index: 999; opacity: 0; transition: opacity .35s ease;">
+    <div style="position: relative; background: #fff8ec; padding: 40px 32px 32px; max-width: 300px; width: 100%; border-radius: 4px; box-shadow: 0 20px 60px rgba(0,0,0,.35); transform: rotate(-1.5deg); font-family: 'Caveat', cursive;">
+      <div style="position:absolute; inset:0; filter: url(#softGrain); opacity:.5; mix-blend-mode: multiply; pointer-events:none;"></div>
+      <!-- tape -->
+      <div style="position:absolute; top:-14px; left: 50%; transform: translateX(-50%) rotate(3deg); width: 60px; height: 22px; background: rgba(201,169,110,.35); border: 1px dashed rgba(139,111,71,.3);"></div>
+      <p style="font-size: 26px; line-height: 1.35; color: #3a2a24; text-align: center; margin: 0; font-weight: 500;">Nessuna papera<br>è stata maltrattata<br>durante la realizzazione<br>di questo sito</p>
+      <div style="text-align: center; margin-top: 20px; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; color: #b7845f;">— giurato —</div>
+      <button data-close-letter style="all: unset; cursor: pointer; position: absolute; top: 8px; right: 12px; font-family: system-ui; font-size: 20px; color: #b7845f;">×</button>
+    </div>
+  </div>
+
+  <!-- ============= 3. GALLERIA ============= -->
+  <section style="padding: 60px 24px 60px; background: linear-gradient(180deg, #efd6bd 0%, #f7ede2 20%, #f7ede2 100%); position: relative;">
+    <div style="position:absolute; inset:0; filter: url(#softGrain); opacity:.35; mix-blend-mode: multiply; pointer-events:none;"></div>
+
+    <div style="text-align: center; margin-bottom: 28px; position: relative;">
+      <p style="font-family: 'Caveat', cursive; font-size: 20px; color: #b7845f; margin: 0; transform: rotate(-1deg);">frammenti</p>
+      <h2 style="font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 28px; margin: 4px 0 0; color: #3a2a24;">tutto quello che siamo</h2>
+      <div style="width: 40px; height: 1px; background: #c9a96e; margin: 14px auto 0;"></div>
+    </div>
+
+    <!-- Variante B: masonry soft grid -->
+    <div style="column-count: 2; column-gap: 12px; position: relative;">
+      <div style="break-inside: avoid; margin-bottom: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 18px rgba(58,42,36,.08); aspect-ratio: 3/4;"><image-slot id="g1" shape="rect" placeholder="foto"></image-slot></div>
+      <div style="break-inside: avoid; margin-bottom: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 18px rgba(58,42,36,.08); aspect-ratio: 1;"><image-slot id="g2" shape="rect" placeholder="foto"></image-slot></div>
+      <div style="break-inside: avoid; margin-bottom: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 18px rgba(58,42,36,.08); aspect-ratio: 3/4;"><image-slot id="g3" shape="rect" placeholder="foto"></image-slot></div>
+      <div style="break-inside: avoid; margin-bottom: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 18px rgba(58,42,36,.08); aspect-ratio: 4/3;"><image-slot id="g4" shape="rect" placeholder="foto"></image-slot></div>
+      <!-- caption card -->
+      <div style="break-inside: avoid; margin-bottom: 12px; padding: 18px 14px; text-align: center;">
+        <p style="font-family: 'Caveat', cursive; font-size: 22px; color: #b7845f; margin: 0; line-height: 1.2; transform: rotate(-1.5deg);">che risate,<br>quel giorno</p>
+      </div>
+      <div style="break-inside: avoid; margin-bottom: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 18px rgba(58,42,36,.08); aspect-ratio: 1;"><image-slot id="g5" shape="rect" placeholder="foto"></image-slot></div>
+      <div style="break-inside: avoid; margin-bottom: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 18px rgba(58,42,36,.08); aspect-ratio: 3/4;"><image-slot id="g6" shape="rect" placeholder="foto"></image-slot></div>
+      <div style="break-inside: avoid; margin-bottom: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 18px rgba(58,42,36,.08); aspect-ratio: 4/3;"><image-slot id="g7" shape="rect" placeholder="foto"></image-slot></div>
+      <div style="break-inside: avoid; margin-bottom: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 18px rgba(58,42,36,.08); aspect-ratio: 1;"><image-slot id="g8" shape="rect" placeholder="foto"></image-slot></div>
+      <div style="break-inside: avoid; margin-bottom: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 18px rgba(58,42,36,.08); aspect-ratio: 3/4;"><image-slot id="g9" shape="rect" placeholder="foto"></image-slot></div>
+      <div style="break-inside: avoid; margin-bottom: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 18px rgba(58,42,36,.08); aspect-ratio: 4/3;"><image-slot id="g10" shape="rect" placeholder="foto"></image-slot></div>
+      <div style="break-inside: avoid; margin-bottom: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 18px rgba(58,42,36,.08); aspect-ratio: 1;"><image-slot id="g11" shape="rect" placeholder="foto"></image-slot></div>
+      <!-- caption card -->
+      <div style="break-inside: avoid; margin-bottom: 12px; padding: 12px 8px; text-align: center;">
+        <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; color: #7a5a4a; margin: 0; line-height: 1.4;">— i piccoli giorni,<br>quelli che contano —</p>
+      </div>
+      <div style="break-inside: avoid; margin-bottom: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 18px rgba(58,42,36,.08); aspect-ratio: 3/4;"><image-slot id="g12" shape="rect" placeholder="foto"></image-slot></div>
+      <div style="break-inside: avoid; margin-bottom: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 18px rgba(58,42,36,.08); aspect-ratio: 4/3;"><image-slot id="g13" shape="rect" placeholder="foto"></image-slot></div>
+      <div style="break-inside: avoid; margin-bottom: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 18px rgba(58,42,36,.08); aspect-ratio: 1;"><image-slot id="g14" shape="rect" placeholder="foto"></image-slot></div>
+      <div style="break-inside: avoid; margin-bottom: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 18px rgba(58,42,36,.08); aspect-ratio: 3/4;"><image-slot id="g15" shape="rect" placeholder="foto"></image-slot></div>
+      <div style="break-inside: avoid; margin-bottom: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 18px rgba(58,42,36,.08); aspect-ratio: 1;"><image-slot id="g16" shape="rect" placeholder="foto"></image-slot></div>
+    </div>
+  </section>
+
+  <!-- ============= 4. POESIE ============= -->
+  <section style="padding: 80px 32px; background: linear-gradient(180deg, #f7ede2 0%, #f5e0d0 50%, #f7ede2 100%); position: relative;">
+    <div style="position:absolute; inset:0; filter: url(#softGrain); opacity:.35; mix-blend-mode: multiply; pointer-events:none;"></div>
+
+    <div style="text-align: center; margin-bottom: 40px; position: relative;">
+      <p style="font-family: 'Caveat', cursive; font-size: 20px; color: #b7845f; margin: 0; transform: rotate(1deg);">le parole degli altri</p>
+      <h2 style="font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 28px; margin: 4px 0 0; color: #3a2a24;">che dicono di noi</h2>
+    </div>
+
+    <!-- Poem 1 -->
+    <div style="text-align: center; margin: 0 0 56px;">
+      <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: 22px; line-height: 1.5; color: #3a2a24; margin: 0 0 16px; text-wrap: pretty;">
+        &ldquo;T'amo come si amano<br>certe cose oscure,<br>segretamente,<br>tra l'ombra e l'anima.&rdquo;
+      </p>
+      <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: #b7845f; letter-spacing: 1.5px; margin: 0; text-transform: uppercase;">Pablo Neruda</p>
+    </div>
+
+    <!-- Divider: gold + heart -->
+    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin: 0 0 56px;">
+      <div style="width: 60px; height: 1px; background: linear-gradient(90deg, transparent, #c9a96e);"></div>
+      <svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 8 C 1 5, 1 2, 3 1 C 4 .5, 5 1.5, 5 3 C 5 1.5, 6 .5, 7 1 C 9 2, 9 5, 5 8 Z" fill="#c9a96e"></path></svg>
+      <div style="width: 60px; height: 1px; background: linear-gradient(90deg, #c9a96e, transparent);"></div>
+    </div>
+
+    <!-- Poem 2 -->
+    <div style="text-align: center; margin: 0 0 56px;">
+      <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: 22px; line-height: 1.5; color: #3a2a24; margin: 0 0 16px; text-wrap: pretty;">
+        &ldquo;Sei tu che io amo,<br>nient'altro che tu.&rdquo;
+      </p>
+      <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: #b7845f; letter-spacing: 1.5px; margin: 0; text-transform: uppercase;">Jacques Prévert</p>
+    </div>
+
+    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin: 0 0 56px;">
+      <div style="width: 60px; height: 1px; background: linear-gradient(90deg, transparent, #c9a96e);"></div>
+      <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="1.6" fill="#c9a96e"></circle></svg>
+      <div style="width: 60px; height: 1px; background: linear-gradient(90deg, #c9a96e, transparent);"></div>
+    </div>
+
+    <!-- Poem 3 -->
+    <div style="text-align: center; margin: 0 0 56px;">
+      <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: 22px; line-height: 1.5; color: #3a2a24; margin: 0 0 16px; text-wrap: pretty;">
+        &ldquo;L'amore è una piccola<br>epifania<br>che si consuma<br>nel silenzio.&rdquo;
+      </p>
+      <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: #b7845f; letter-spacing: 1.5px; margin: 0; text-transform: uppercase;">Alda Merini</p>
+    </div>
+
+    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin: 0 0 56px;">
+      <div style="width: 60px; height: 1px; background: linear-gradient(90deg, transparent, #c9a96e);"></div>
+      <svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 8 C 1 5, 1 2, 3 1 C 4 .5, 5 1.5, 5 3 C 5 1.5, 6 .5, 7 1 C 9 2, 9 5, 5 8 Z" fill="#c9a96e"></path></svg>
+      <div style="width: 60px; height: 1px; background: linear-gradient(90deg, #c9a96e, transparent);"></div>
+    </div>
+
+    <!-- Poem 4 -->
+    <div style="text-align: center;">
+      <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: 22px; line-height: 1.5; color: #3a2a24; margin: 0 0 16px; text-wrap: pretty;">
+        &ldquo;Che io ti ami<br>lo sai.&rdquo;
+      </p>
+      <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: #b7845f; letter-spacing: 1.5px; margin: 0; text-transform: uppercase;">Emily Dickinson</p>
+    </div>
+  </section>
+
+  <!-- ============= 5. LE MIE PAROLE ============= -->
+  <section style="padding: 80px 24px; background: linear-gradient(180deg, #f7ede2 0%, #eee2cf 100%); position: relative;">
+    <!-- Wooden-table hint via warmer tone + heavy grain -->
+    <div style="position:absolute; inset:0; filter: url(#paperGrain); opacity:.5; mix-blend-mode: multiply; pointer-events:none;"></div>
+
+    <div style="text-align: center; margin-bottom: 44px; position: relative;">
+      <p style="font-family: 'Caveat', cursive; font-size: 20px; color: #b7845f; margin: 0; transform: rotate(-1.5deg);">le mie parole</p>
+      <h2 style="font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 28px; margin: 4px 0 0; color: #3a2a24;">solo per te</h2>
+    </div>
+
+    <!-- Note 1 -->
+    <div style="background: #fff8ec; padding: 26px 22px 22px; margin: 0 8px 32px 0; border-radius: 3px; box-shadow: 0 8px 20px rgba(58,42,36,.12), 0 2px 4px rgba(58,42,36,.08); transform: rotate(-2.5deg); position: relative; font-family: 'Caveat', cursive;">
+      <div style="position:absolute; inset:0; filter: url(#softGrain); opacity:.45; mix-blend-mode: multiply; pointer-events:none; border-radius: 3px;"></div>
+      <!-- little heart top-right -->
+      <svg width="16" height="14" viewBox="0 0 16 14" style="position: absolute; top: 10px; right: 12px;"><path d="M8 12 C 1.5 8, 1 3.5, 3.5 1.5 C 5 .5, 7 1.5, 8 3.5 C 9 1.5, 11 .5, 12.5 1.5 C 15 3.5, 14.5 8, 8 12 Z" fill="none" stroke="#c56b5a" stroke-width="1.2" stroke-linejoin="round"></path></svg>
+      <p style="font-size: 21px; line-height: 1.35; color: #3a2a24; margin: 0; font-weight: 500;">Ti scelgo. Anche oggi. Anche domani. Anche quando la moka scoppia e diamo la colpa al gatto.</p>
+    </div>
+
+    <!-- Note 2 -->
+    <div style="background: #fef3e0; padding: 26px 22px 22px; margin: 0 0 32px 8px; border-radius: 3px; box-shadow: 0 8px 20px rgba(58,42,36,.12), 0 2px 4px rgba(58,42,36,.08); transform: rotate(2deg); position: relative; font-family: 'Caveat', cursive;">
+      <div style="position:absolute; inset:0; filter: url(#softGrain); opacity:.45; mix-blend-mode: multiply; pointer-events:none; border-radius: 3px;"></div>
+      <span style="position: absolute; top: 10px; right: 14px; font-family: 'Caveat', cursive; font-size: 14px; color: #b7845f; transform: rotate(4deg); display:inline-block;">5.09</span>
+      <p style="font-size: 21px; line-height: 1.35; color: #3a2a24; margin: 0; font-weight: 500;">La tua risata è il mio suono preferito. Ti prego, non smettere di farla — nemmeno quando dormi.</p>
+    </div>
+
+    <!-- Note 3 -->
+    <div style="background: #fbe8d4; padding: 26px 22px 22px; margin: 0 12px 32px 0; border-radius: 3px; box-shadow: 0 8px 20px rgba(58,42,36,.12), 0 2px 4px rgba(58,42,36,.08); transform: rotate(-1.5deg); position: relative; font-family: 'Caveat', cursive;">
+      <div style="position:absolute; inset:0; filter: url(#softGrain); opacity:.45; mix-blend-mode: multiply; pointer-events:none; border-radius: 3px;"></div>
+      <svg width="16" height="14" viewBox="0 0 16 14" style="position: absolute; top: 10px; right: 12px;"><path d="M8 12 C 1.5 8, 1 3.5, 3.5 1.5 C 5 .5, 7 1.5, 8 3.5 C 9 1.5, 11 .5, 12.5 1.5 C 15 3.5, 14.5 8, 8 12 Z" fill="#e07a7a"></path></svg>
+      <p style="font-size: 21px; line-height: 1.35; color: #3a2a24; margin: 0; font-weight: 500;">Grazie per essere il mio disordine ordinato. Per farmi ridere quando volevo solo tenermi il broncio.</p>
+    </div>
+
+    <!-- Note 4 -->
+    <div style="background: #fff8ec; padding: 26px 22px 22px; margin: 0 4px 0 12px; border-radius: 3px; box-shadow: 0 8px 20px rgba(58,42,36,.12), 0 2px 4px rgba(58,42,36,.08); transform: rotate(3deg); position: relative; font-family: 'Caveat', cursive;">
+      <div style="position:absolute; inset:0; filter: url(#softGrain); opacity:.45; mix-blend-mode: multiply; pointer-events:none; border-radius: 3px;"></div>
+      <!-- little tape -->
+      <div style="position: absolute; top: -8px; left: 20px; width: 44px; height: 14px; background: rgba(201,169,110,.4); border: 1px dashed rgba(139,111,71,.25); transform: rotate(-6deg);"></div>
+      <p style="font-size: 21px; line-height: 1.35; color: #3a2a24; margin: 0; font-weight: 500;">5 settembre. Nostro. Sempre.</p>
+      <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; color: #b7845f; margin: 10px 0 0; text-align: right;">— tuo, V.</p>
+    </div>
+  </section>
+
+  <!-- ============= 6. CHIUSURA ============= -->
+  <section style="padding: 100px 40px 120px; background: linear-gradient(180deg, #eee2cf 0%, #f4d9c2 50%, #eab89a 100%); position: relative; overflow: hidden;">
+    <div style="position:absolute; inset:0; filter: url(#softGrain); opacity:.3; mix-blend-mode: multiply; pointer-events:none;"></div>
+
+    <div style="text-align: center; position: relative;">
+      <!-- flourish top -->
+      <svg width="60" height="18" viewBox="0 0 60 18" style="margin-bottom: 40px; opacity: .7;">
+        <path d="M2 9 Q 15 3, 30 9 T 58 9" stroke="#c9a96e" stroke-width="1" fill="none" stroke-linecap="round"></path>
+      </svg>
+
+      <p style="font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 34px; line-height: 1.25; color: #3a2a24; margin: 0 0 60px; text-wrap: balance;">
+        E ogni giorno,<br>ancora.
+      </p>
+
+      <!-- Hand-drawn heart, pulsing -->
+      <div style="display: inline-block; animation: heartbeat 2.4s ease-in-out infinite;">
+        <svg width="52" height="46" viewBox="0 0 52 46">
+          <path d="M26 42 C 6 30, 2 14, 10 6 C 16 2, 22 5, 26 12 C 30 5, 36 2, 42 6 C 50 14, 46 30, 26 42 Z"
+                fill="none" stroke="#c56b5a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
+                stroke-dasharray="1 2.5" stroke-dashoffset="0"></path>
+          <!-- little sketch marks -->
+          <path d="M10 12 Q 12 14, 14 12" stroke="#c56b5a" stroke-width=".8" fill="none" stroke-linecap="round"></path>
+          <path d="M38 12 Q 40 14, 42 12" stroke="#c56b5a" stroke-width=".8" fill="none" stroke-linecap="round"></path>
+        </svg>
+      </div>
+
+      <p style="font-family: 'Caveat', cursive; font-size: 16px; color: #8f5f42; margin: 80px 0 0; opacity: .7;">— fine —</p>
+    </div>
+
+    <!-- Safe area bottom (home indicator) -->
+    <div style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); width: 134px; height: 5px; background: #3a2a24; border-radius: 3px; opacity: .35;"></div>
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 375, &quot;height&quot;: 1200}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    const overlay = document.querySelector('[data-letter-overlay]');
+    const openBtn = document.querySelector('[data-hidden-letter]');
+    const closeBtn = document.querySelector('[data-close-letter]');
+    if (!overlay || !openBtn) return;
+    const open = () => {
+      overlay.style.display = 'flex';
+      requestAnimationFrame(() => { overlay.style.opacity = '1'; });
+    };
+    const close = () => {
+      overlay.style.opacity = '0';
+      setTimeout(() => { overlay.style.display = 'none'; }, 350);
+    };
+    openBtn?.addEventListener('click', open);
+    closeBtn?.addEventListener('click', close);
+    overlay?.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+  }
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

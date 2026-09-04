@@ -20,7 +20,7 @@
             background: #FBF3EA;
         }
         #gate { display:flex; align-items:center; justify-content:center; height:100dvh; font-size:2rem; background:#FBF3EA; }
-        .flow { max-width: 414px; margin: 0 auto; }
+        .flow { max-width: 430px; margin: 0 auto; }
 
         .snap { scroll-snap-align: start; }
         .hero {
@@ -44,7 +44,7 @@
 
         .scene-wrap {
             width:100%; aspect-ratio:9/14; position:relative; overflow:hidden;
-            border-radius:16px; margin:1rem auto; max-width:414px;
+            border-radius:16px; margin:1rem auto; max-width:380px;
             box-shadow:0 4px 24px rgba(0,0,0,0.08);
         }
         .scene-wrap svg.scene-bg { width:100%; height:100%; display:block; }
@@ -88,28 +88,6 @@
         }
         @keyframes popIn { from{transform:scale(0.85) translateY(10px);opacity:0} to{transform:scale(1) translateY(0);opacity:1} }
 
-        .handletter-popup {
-            display:none; position:fixed; inset:0; z-index:100;
-            background:rgba(59,46,31,0.45); backdrop-filter:blur(6px);
-            align-items:center; justify-content:center; padding:1rem;
-        }
-        .handletter-popup.open { display:flex; }
-        .handletter-card {
-            background:#FFF8EE; border-radius:8px; padding:2rem 1.5rem 2.5rem;
-            max-width:340px; width:100%; max-height:80dvh; overflow-y:auto;
-            box-shadow:0 12px 40px rgba(0,0,0,0.2);
-            font-family:'Caveat',cursive; font-size:1.15rem; line-height:1.9;
-            color:#5C3D2E; text-align:left; animation:popIn 0.35s ease; position:relative;
-            -webkit-overflow-scrolling:touch;
-        }
-        .handletter-card .close-x {
-            position:sticky; top:0; float:right; background:none; border:none;
-            font-size:1.3rem; color:#C4A882; cursor:pointer; font-family:'Cormorant Garamond',serif;
-            z-index:2;
-        }
-        .handletter-card p { margin-bottom:1rem; }
-        .handletter-card .letter-sign { text-align:right; margin-top:1.5rem; font-size:1.3rem; color:#A0755A; }
-
         .bubble {
             position:absolute; border-radius:50%; pointer-events:none;
             animation: bubbleFloat var(--dur, 1.5s) ease-out forwards;
@@ -131,51 +109,31 @@
         .year-header { text-align:center; padding:2rem 1rem 1.5rem; }
         .year-label { font-size:2.2rem; font-weight:300; color:#D4B896; letter-spacing:0.06em; opacity:0.5; }
         .year-photos { padding:0 0.75rem; }
-        .year-grid {
-            columns:2; column-gap:0.5rem;
+        .year-photos .row { display:flex; gap:0.5rem; margin-bottom:0.5rem; }
+        .year-photos .row.off { margin-left:1rem; }
+        .pf {
+            flex:1; border-radius:10px; overflow:hidden;
+            background:#EDE1D4; aspect-ratio:1;
+            display:flex; align-items:center; justify-content:center; position:relative;
         }
-        .year-grid .photo-cell {
-            border-radius:4px; background:#EDE1D4;
-            position:relative; margin-bottom:0.5rem; break-inside:avoid;
+        .pf.w { aspect-ratio:16/10; flex:1.6; }
+        .pf.t { aspect-ratio:3/4; }
+        .pf img { width:100%; height:100%; object-fit:cover; display:block; }
+        .pf .ph { color:#C4A882; font-size:1.2rem; opacity:0.35; }
+        .anno {
+            position:relative; padding:0.15rem 1rem 0.6rem;
+            margin:-0.3rem 0 0.4rem; max-width:75%;
         }
-        .year-grid .photo-cell img {
-            width:100%; height:auto; display:block;
+        .anno.right { margin-left:auto; text-align:right; }
+        .anno-text { font-family:'Caveat',cursive; font-size:0.95rem; color:#8B7355; line-height:1.4; }
+        .anno svg.arrow-svg {
+            position:absolute; width:28px; height:22px;
+            fill:none; stroke:#C4A882; stroke-width:1.5; stroke-linecap:round;
         }
-        .year-grid .photo-cell .del-btn {
-            position:absolute; top:4px; right:4px; width:22px; height:22px;
-            border-radius:50%; background:rgba(0,0,0,0.45); border:none;
-            color:white; font-size:13px; cursor:pointer; display:none;
-            align-items:center; justify-content:center; line-height:1;
-            backdrop-filter:blur(2px);
-        }
-        .year-grid .photo-cell:active .del-btn,
-        .year-grid .photo-cell:hover .del-btn { display:flex; }
-        .year-empty {
-            column-span:all; text-align:center; padding:2rem 1rem;
-            color:#C4A882; font-style:italic; font-size:0.9rem;
-        }
-        .add-photo-wrap { text-align:center; padding:0.8rem 0 0.5rem; position:relative; }
-        .add-photo-btn {
-            width:40px; height:40px; border-radius:50%;
-            background:rgba(212,184,150,0.15); border:1.5px dashed #C4A882;
-            color:#B89B7A; font-size:1.4rem; cursor:pointer;
-            display:inline-flex; align-items:center; justify-content:center;
-            transition:background 0.2s, transform 0.15s;
-        }
-        .add-photo-btn:active { transform:scale(0.9); background:rgba(212,184,150,0.3); }
-        .add-hint {
-            display:flex; align-items:center; justify-content:center; gap:0.4rem;
-            margin-top:0.4rem; font-family:'Caveat',cursive; font-size:0.9rem; color:#B89B7A;
-            animation:hintFade 3s ease-in-out infinite;
-        }
-        .add-hint svg { width:16px; height:16px; stroke:#C4A882; fill:none; stroke-width:1.5; stroke-linecap:round; }
-        @keyframes hintFade { 0%,100%{opacity:0.4} 50%{opacity:1} }
-        .upload-progress {
-            height:3px; background:#D4B896; border-radius:2px;
-            margin:0.5rem auto 0; max-width:120px; transform-origin:left;
-            animation:uploadBar 1.2s ease-in-out; display:none;
-        }
-        @keyframes uploadBar { 0%{transform:scaleX(0)} 100%{transform:scaleX(1)} }
+        /* left annotation: arrow on left, curving up-right toward photo above */
+        .anno:not(.right) svg.arrow-svg { left:0; top:-14px; }
+        /* right annotation: arrow on right, curving up-left toward photo above */
+        .anno.right svg.arrow-svg { right:0; top:-14px; transform:scaleX(-1); }
 
         .note-wrap { display:flex; justify-content:center; padding:1rem 0; }
         .note {
@@ -197,79 +155,6 @@
 
         .fi { opacity:0; transform:translateY(24px); transition:opacity 0.9s ease,transform 0.9s ease; }
         .fi.v { opacity:1; transform:translateY(0); }
-
-        /* ── Lightbox ── */
-        .lightbox {
-            position:fixed; inset:0; z-index:9999; display:flex;
-            align-items:center; justify-content:center;
-            background:rgba(0,0,0,0.85); backdrop-filter:blur(6px);
-            opacity:0; transition:opacity 0.3s ease; pointer-events:none;
-        }
-        .lightbox.open { opacity:1; pointer-events:auto; }
-        .lightbox img {
-            max-width:92vw; max-height:88vh; border-radius:3px;
-            object-fit:contain; transform:scale(0.92);
-            transition:transform 0.3s ease;
-        }
-        .lightbox.open img { transform:scale(1); }
-        .lightbox-close {
-            position:absolute; top:env(safe-area-inset-top,12px); right:12px;
-            margin-top:12px;
-            width:36px; height:36px; border-radius:50%;
-            background:rgba(255,255,255,0.15); border:none;
-            color:white; font-size:20px; cursor:pointer;
-            display:flex; align-items:center; justify-content:center;
-            backdrop-filter:blur(4px);
-        }
-
-        /* ── Flip card ── */
-        .photo-cell { perspective:800px; -webkit-perspective:800px; }
-        .photo-cell.lifting {
-            z-index:10;
-        }
-        .photo-cell.lifting .photo-inner {
-            box-shadow:0 12px 40px rgba(0,0,0,0.35);
-            transform:scale(1.04);
-        }
-        .photo-cell.flipped { z-index:10; }
-        .photo-cell.flipped .photo-inner {
-            transform:rotateY(180deg);
-            box-shadow:0 8px 28px rgba(0,0,0,0.25);
-        }
-        .photo-inner {
-            position:relative; transition:transform 0.6s ease, box-shadow 0.3s ease;
-            transform-style:preserve-3d; -webkit-transform-style:preserve-3d;
-            border-radius:4px;
-        }
-        .photo-front {
-            backface-visibility:hidden; -webkit-backface-visibility:hidden;
-            overflow:hidden; border-radius:4px;
-        }
-        .photo-back {
-            position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden;
-            transform:rotateY(180deg);
-            background:linear-gradient(145deg, #FBF3EA 0%, #F0E4D4 100%);
-            border-radius:4px; display:flex; flex-direction:column;
-            align-items:center; justify-content:center; padding:1rem 0.8rem;
-            font-family:'Caveat',cursive;
-            pointer-events:none;
-        }
-        .photo-cell.flipped .photo-back { pointer-events:auto; }
-        .photo-back textarea {
-            width:100%; flex:1; border:none; background:transparent;
-            font-family:'Caveat',cursive; font-size:1rem; color:#5C3D2E;
-            text-align:center; resize:none; outline:none;
-            line-height:1.5;
-            -webkit-user-select:text; user-select:text;
-        }
-        .photo-back textarea::placeholder { color:#C4A882; }
-        .photo-back .save-note-btn {
-            padding:0.3rem 1rem; border:1px solid #C4A882;
-            border-radius:12px; background:rgba(212,184,150,0.15);
-            font-family:'Caveat',cursive; font-size:0.9rem; color:#8B6F4E;
-            cursor:pointer; transition:background 0.2s;
-        }
-        .photo-back .save-note-btn:active { background:rgba(212,184,150,0.35); }
     </style>
 </head>
 <body>
@@ -280,7 +165,7 @@
 <div class="flow">
 
     <div class="hero snap">
-        <h1 class="hero-names">Noi</h1>
+        <h1 class="hero-names">Melissa<span class="hero-amp">&amp;</span>Valentino</h1>
         <p class="hero-date">5 settembre</p>
         <div class="hero-line"></div>
         <div class="scroll-hint"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
@@ -895,7 +780,7 @@
 
     <!-- Poesia 2 -->
     <div class="breath fi snap">
-        <p class="breath-text">E l'amore guardò il tempo e rise,
+        <p class="breath-text">E l’amore guardò il tempo e rise,
 
 perchè sapeva di non averne bisogno.
 
@@ -919,24 +804,39 @@ il tempo moriva e lui restava.</p>
     </div>
 
     <!-- ANNO 1 -->
-    <div class="year-section snap" data-year="2022-2023">
-        <div class="year-header fi"><div class="year-label">2022&#x2009;&#x2013;&#x2009;2023</div></div>
+    <div class="year-section snap">
+        <div class="year-header fi"><div class="year-label">2021&#x2009;&#x2013;&#x2009;2022</div></div>
         <div class="year-photos">
-            <div class="year-grid" id="grid-2022-2023"></div>
-            <div class="add-photo-wrap">
-                <button class="add-photo-btn" onclick="triggerUpload('2022-2023')">+</button>
-            </div>
+            <div class="row fi"><div class="pf"><span class="ph">&#x1F4F7;</span></div><div class="pf"><span class="ph">&#x1F4F7;</span></div></div>
+            <div class="anno fi"><svg class="arrow-svg" viewBox="0 0 28 22"><path d="M4 20 Q6 6 18 4" /><path d="M14 2 L18 4 L14 7" /></svg><span class="anno-text">Descrizione breve di questa foto...</span></div>
+            <div class="row off fi"><div class="pf w"><span class="ph">&#x1F4F7;</span></div></div>
+            <div class="anno right fi"><svg class="arrow-svg" viewBox="0 0 28 22"><path d="M4 20 Q6 6 18 4" /><path d="M14 2 L18 4 L14 7" /></svg><span class="anno-text">Un'altra descrizione...</span></div>
         </div>
+    </div>
+    <div class="note-wrap snap"><div class="note fi" style="--r:-1.5deg;"><p>Immagina uscire un giorno per un aperitivo con un ragazzo un po’ strano e impacciato e ritrovarci 5 anni dopo con l’entusiasmo di sapere che i ricordi da vivere sono ancora così tanti.</p></div></div>
+
+    <div class="breath fi snap">
+        <p class="breath-text">Perché per i baci non esiste un numero, / misuriamolo in una vita sola, il tempo che ci manca.</p>
+        <span class="breath-dot"></span>
     </div>
 
     <!-- ANNO 2 -->
-    <div class="year-section snap" data-year="2023-2024">
+    <div class="year-section snap">
+        <div class="year-header fi"><div class="year-label">2022&#x2009;&#x2013;&#x2009;2023</div></div>
+        <div class="year-photos">
+            <div class="row fi"><div class="pf t"><span class="ph">&#x1F4F7;</span></div><div class="pf"><span class="ph">&#x1F4F7;</span></div></div>
+            <div class="anno fi"><svg class="arrow-svg" viewBox="0 0 28 22"><path d="M4 20 Q6 6 18 4" /><path d="M14 2 L18 4 L14 7" /></svg><span class="anno-text">Descrizione...</span></div>
+            <div class="row fi"><div class="pf"><span class="ph">&#x1F4F7;</span></div><div class="pf"><span class="ph">&#x1F4F7;</span></div></div>
+        </div>
+    </div>
+
+    <!-- ANNO 3 -->
+    <div class="year-section snap">
         <div class="year-header fi"><div class="year-label">2023&#x2009;&#x2013;&#x2009;2024</div></div>
         <div class="year-photos">
-            <div class="year-grid" id="grid-2023-2024"></div>
-            <div class="add-photo-wrap">
-                <button class="add-photo-btn" onclick="triggerUpload('2023-2024')">+</button>
-            </div>
+            <div class="row fi"><div class="pf"><span class="ph">&#x1F4F7;</span></div><div class="pf t"><span class="ph">&#x1F4F7;</span></div></div>
+            <div class="anno right fi"><svg class="arrow-svg" viewBox="0 0 28 22"><path d="M4 20 Q6 6 18 4" /><path d="M14 2 L18 4 L14 7" /></svg><span class="anno-text">Descrizione...</span></div>
+            <div class="row off fi"><div class="pf w"><span class="ph">&#x1F4F7;</span></div></div>
         </div>
     </div>
     <div class="note-wrap snap"><div class="note fi" style="--r:1deg;"><p>Dopo tanti fiori sbocciati, dopo tante montagne fattesi colline e dopo tanti inverni sciolti in primavera, come si rincuora il tempo nel non avere fatto passare nemmeno un istante dalla prima volta che ti ho visto?</p></div></div>
@@ -950,28 +850,26 @@ e nessuno ha mai amato.</p>
         <span class="breath-dot"></span>
     </div>
 
-    <!-- ANNO 3 -->
-    <div class="year-section snap" data-year="2024-2025">
+    <!-- ANNO 4 -->
+    <div class="year-section snap">
         <div class="year-header fi"><div class="year-label">2024&#x2009;&#x2013;&#x2009;2025</div></div>
         <div class="year-photos">
-            <div class="year-grid" id="grid-2024-2025"></div>
-            <div class="add-photo-wrap">
-                <button class="add-photo-btn" onclick="triggerUpload('2024-2025')">+</button>
-            </div>
+            <div class="row fi"><div class="pf w"><span class="ph">&#x1F4F7;</span></div></div>
+            <div class="anno fi"><svg class="arrow-svg" viewBox="0 0 28 22"><path d="M4 20 Q6 6 18 4" /><path d="M14 2 L18 4 L14 7" /></svg><span class="anno-text">Descrizione...</span></div>
+            <div class="row fi"><div class="pf"><span class="ph">&#x1F4F7;</span></div><div class="pf"><span class="ph">&#x1F4F7;</span></div></div>
         </div>
     </div>
 
-    <!-- ANNO 4 -->
-    <div class="year-section snap" data-year="2025-2026">
+    <!-- ANNO 5 -->
+    <div class="year-section snap">
         <div class="year-header fi"><div class="year-label">2025&#x2009;&#x2013;&#x2009;2026</div></div>
         <div class="year-photos">
-            <div class="year-grid" id="grid-2025-2026"></div>
-            <div class="add-photo-wrap">
-                <button class="add-photo-btn" onclick="triggerUpload('2025-2026')">+</button>
-            </div>
+            <div class="row fi"><div class="pf"><span class="ph">&#x1F4F7;</span></div><div class="pf"><span class="ph">&#x1F4F7;</span></div></div>
+            <div class="row off fi"><div class="pf t"><span class="ph">&#x1F4F7;</span></div><div class="pf"><span class="ph">&#x1F4F7;</span></div></div>
+            <div class="anno right fi"><svg class="arrow-svg" viewBox="0 0 28 22"><path d="M4 20 Q6 6 18 4" /><path d="M14 2 L18 4 L14 7" /></svg><span class="anno-text">Descrizione...</span></div>
         </div>
     </div>
-    <div class="note-wrap snap"><div class="note fi" style="--r:-0.8deg;"><p>Così è per me, che riguardando le foto per mettere insieme questi miei pensieri, ho rivisto che immenso viaggio stiamo ancora vivendo;
+    <div class="note-wrap snap"><div class="note fi" style="--r:-0.8deg;"><p>Così è per me, che riguardando le foto per mettere insieme questi miei pensieri, ho rivisto che immenso viaggio stiamo ancora vivendo; 
 	quanto amore che vive nei ricordi che custodisco con premura per poterli rivedere ancora una volta tra chissà quanto tempo e nel rivederli tornare indietro come non fosse mai passato un secondo.</p></div></div>
 
     <div class="breath fi snap">
@@ -985,7 +883,7 @@ non te l'ho ancora detto. </p>
 
     <div class="closing snap">
         <p class="closing-text fi">E ogni giorno, ancora</p>
-        <div class="closing-heart fi" id="heartBtn" style="cursor:pointer;">
+        <div class="closing-heart fi">
             <svg viewBox="0 0 24 24" fill="none" stroke="#D4736A" stroke-width="1.2" stroke-linecap="round">
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
             </svg>
@@ -1001,304 +899,16 @@ non te l'ho ancora detto. </p>
     </div>
 </div>
 
-<div class="handletter-popup" id="handletterPopup">
-    <div class="handletter-card">
-        <button class="close-x" id="closeHandletter">&times;</button>
-        <p>Scrivi qui la tua lettera...</p>
-        <p class="letter-sign">— V.</p>
-    </div>
-</div>
-
 <script>
 /* ── AUTH ── */
 (function(){
-    const params = new URLSearchParams(window.location.search);
-    const token = params.get('token') || sessionStorage.getItem('auth_token');
-    const ok = token === 'oXS7JtAoupGMfaToi4NN6kMFJGmw5-JTNusTzhzHxz0';
-    if(ok){sessionStorage.setItem('auth_token', token);document.getElementById('gate').style.display='none';document.getElementById('content').style.display='block';}
-    else{document.getElementById('gate').innerHTML='<p style="color:#A0755A;font-size:1rem;">Accesso riservato</p>';}
+    const ok=true; // DEV MODE
+    if(ok){sessionStorage.setItem('auth','1');document.getElementById('gate').style.display='none';document.getElementById('content').style.display='block';}
 })();
 
 /* ── FADE IN ── */
 const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');obs.unobserve(e.target);}});},{threshold:0.12});
 document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
-
-/* ══════════════════════════════════════
-   GALLERIA DINAMICA — R2
-   ══════════════════════════════════════ */
-const API_BASE = 'https://anniversary-api.valentinoruini.workers.dev';
-const TOKEN = 'oXS7JtAoupGMfaToi4NN6kMFJGmw5-JTNusTzhzHxz0';
-const YEARS = ['2022-2023','2023-2024','2024-2025','2025-2026'];
-
-// Input file nascosto (condiviso)
-const fileInput = document.createElement('input');
-fileInput.type = 'file';
-fileInput.accept = 'image/*';
-fileInput.multiple = true;
-fileInput.style.display = 'none';
-document.body.appendChild(fileInput);
-
-let currentUploadYear = null;
-
-function triggerUpload(year) {
-    currentUploadYear = year;
-    fileInput.value = '';
-    fileInput.click();
-}
-
-fileInput.addEventListener('change', async () => {
-    if (!fileInput.files.length || !currentUploadYear) return;
-    const year = currentUploadYear;
-    const grid = document.getElementById('grid-' + year);
-    const wrap = grid.closest('.year-photos').querySelector('.add-photo-wrap');
-
-    // Mostra barra progresso
-    let bar = wrap.querySelector('.upload-progress');
-    if (!bar) { bar = document.createElement('div'); bar.className = 'upload-progress'; wrap.appendChild(bar); }
-
-    for (const file of fileInput.files) {
-        bar.style.display = 'block';
-        bar.style.animation = 'none';
-        bar.offsetHeight; // reflow
-        bar.style.animation = '';
-
-        try {
-            const fd = new FormData();
-            fd.append('file', file);
-            const res = await fetch(`${API_BASE}/photos/${year}?token=${TOKEN}`, {
-                method: 'POST',
-                body: fd,
-            });
-            if (!res.ok) {
-                const err = await res.json().catch(() => ({}));
-                alert(err.error || 'Errore upload');
-                continue;
-            }
-            const data = await res.json();
-            addPhotoToGrid(grid, data.key, data.url, year);
-        } catch (e) {
-            alert('Errore di rete: ' + e.message);
-        }
-    }
-    bar.style.display = 'none';
-    // Rimuovi placeholder vuoto se c'è
-    const empty = grid.querySelector('.year-empty');
-    if (empty) empty.remove();
-});
-
-/* ── Lightbox ── */
-function openLightbox(src) {
-    const lb = document.getElementById('lightbox');
-    document.getElementById('lightboxImg').src = src;
-    lb.classList.add('open');
-    document.body.style.overflow = 'hidden';
-}
-function closeLightbox() {
-    const lb = document.getElementById('lightbox');
-    lb.classList.remove('open');
-    document.body.style.overflow = '';
-}
-
-function addPhotoToGrid(grid, key, url, year) {
-    const cell = document.createElement('div');
-    cell.className = 'photo-cell';
-    const imgUrl = url + (url.includes('?') ? '&' : '?') + 'token=' + TOKEN;
-
-    // Struttura flip card
-    const inner = document.createElement('div');
-    inner.className = 'photo-inner';
-
-    // ── Fronte ──
-    const front = document.createElement('div');
-    front.className = 'photo-front';
-    const img = document.createElement('img');
-    img.src = imgUrl;
-    img.loading = 'lazy';
-    img.alt = '';
-    const del = document.createElement('button');
-    del.className = 'del-btn';
-    del.textContent = '×';
-    del.onclick = async (e) => {
-        e.stopPropagation();
-        if (!confirm('Rimuovere questa foto?')) return;
-        try {
-            const res = await fetch(`${API_BASE}/photos/${year}/${key}?token=${TOKEN}`, { method: 'DELETE' });
-            if (res.ok) {
-                cell.remove();
-                if (!grid.querySelector('.photo-cell')) {
-                    grid.innerHTML = '<div class="year-empty">Nessuna foto ancora</div>';
-                }
-            }
-        } catch (e2) { console.error('Errore eliminazione:', e2); }
-    };
-    front.appendChild(img);
-    front.appendChild(del);
-
-    // ── Retro ──
-    const back = document.createElement('div');
-    back.className = 'photo-back';
-    const ta = document.createElement('textarea');
-    ta.placeholder = 'Scrivi un ricordo…';
-    ta.maxLength = 500;
-    const saveBtn = document.createElement('button');
-    saveBtn.className = 'save-note-btn';
-    saveBtn.textContent = 'Salva';
-    saveBtn.onclick = (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        saveBtn.disabled = true;
-        saveBtn.textContent = '…';
-        fetch(`${API_BASE}/photos/${year}/${key}/note?token=${TOKEN}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ note: ta.value || '' }),
-        }).then(res => {
-            saveBtn.textContent = res.ok ? '✓' : '✗';
-        }).catch(() => {
-            saveBtn.textContent = '✗';
-        }).finally(() => {
-            saveBtn.disabled = false;
-            setTimeout(() => { saveBtn.textContent = 'Salva'; }, 1200);
-        });
-    };
-    const flipBackBtn = document.createElement('button');
-    flipBackBtn.className = 'save-note-btn';
-    flipBackBtn.textContent = '↩';
-    flipBackBtn.onclick = (e) => {
-        e.stopPropagation();
-        cell.classList.add('lifting');
-        setTimeout(() => { cell.classList.remove('lifting', 'flipped'); }, 400);
-    };
-    const btnRow = document.createElement('div');
-    btnRow.style.cssText = 'display:flex; gap:0.5rem; margin-top:0.5rem;';
-    btnRow.appendChild(saveBtn);
-    btnRow.appendChild(flipBackBtn);
-    back.appendChild(ta);
-    back.appendChild(btnRow);
-
-    // Carica nota esistente
-    if (API_BASE) {
-        fetch(`${API_BASE}/photos/${year}/${key}/note?token=${TOKEN}`)
-            .then(r => r.json())
-            .then(d => { if (d.note) ta.value = d.note; })
-            .catch(() => {});
-    }
-
-    inner.appendChild(front);
-    inner.appendChild(back);
-    cell.appendChild(inner);
-
-    // ── Gestione interazioni ──
-    // Solo sulla FRONT: tap breve → lightbox, long-press (500ms) → flip
-    // Il retro è interattivo normalmente (textarea, bottoni)
-    // Una sola foto girata alla volta
-    let pressTimer = null;
-    let didLongPress = false;
-    let startX = 0, startY = 0;
-
-    function doFlip() {
-        // Chiudi eventuali altre foto girate — istantaneamente
-        document.querySelectorAll('.photo-cell.flipped').forEach(other => {
-            if (other !== cell) {
-                const otherInner = other.querySelector('.photo-inner');
-                if (otherInner) otherInner.style.transition = 'none';
-                other.classList.remove('flipped', 'lifting');
-                if (otherInner) requestAnimationFrame(() => { otherInner.style.transition = ''; });
-            }
-        });
-        cell.classList.add('lifting');
-        setTimeout(() => {
-            cell.classList.remove('lifting');
-            cell.classList.toggle('flipped');
-        }, 400);
-    }
-
-    function startPress(x, y) {
-        didLongPress = false;
-        startX = x; startY = y;
-        pressTimer = setTimeout(() => {
-            didLongPress = true;
-            doFlip();
-        }, 500);
-    }
-    function cancelPress() {
-        clearTimeout(pressTimer);
-    }
-
-    // Interazioni solo sulla parte frontale (immagine)
-    front.addEventListener('touchstart', (e) => {
-        const t = e.touches[0];
-        startPress(t.clientX, t.clientY);
-    }, { passive: true });
-    front.addEventListener('touchmove', (e) => {
-        const t = e.touches[0];
-        if (Math.abs(t.clientX - startX) > 10 || Math.abs(t.clientY - startY) > 10) cancelPress();
-    }, { passive: true });
-    front.addEventListener('touchend', (e) => {
-        clearTimeout(pressTimer);
-        if (!didLongPress) openLightbox(imgUrl);
-        didLongPress = false;
-    });
-    front.addEventListener('touchcancel', cancelPress);
-
-    // Mouse (desktop) sulla front
-    front.addEventListener('mousedown', (e) => {
-        if (e.target === del) return;
-        startPress(e.clientX, e.clientY);
-    });
-    front.addEventListener('mousemove', (e) => {
-        if (Math.abs(e.clientX - startX) > 10 || Math.abs(e.clientY - startY) > 10) cancelPress();
-    });
-    front.addEventListener('mouseup', (e) => {
-        if (e.target === del) { cancelPress(); return; }
-        clearTimeout(pressTimer);
-        if (!didLongPress) openLightbox(imgUrl);
-        didLongPress = false;
-    });
-    // Previeni menu contestuale su long-press mobile
-    front.addEventListener('contextmenu', (e) => e.preventDefault());
-
-    grid.appendChild(cell);
-}
-
-async function loadAllPhotos() {
-    if (!API_BASE) {
-        // Senza API configurata, mostra placeholder
-        YEARS.forEach(year => {
-            const grid = document.getElementById('grid-' + year);
-            if (grid) grid.innerHTML = '<div class="year-empty">Nessuna foto ancora</div>';
-        });
-        return;
-    }
-    for (const year of YEARS) {
-        const grid = document.getElementById('grid-' + year);
-        if (!grid) continue;
-        try {
-            const res = await fetch(`${API_BASE}/photos/${year}?token=${TOKEN}`);
-            if (!res.ok) throw new Error();
-            const data = await res.json();
-            if (data.photos.length === 0) {
-                grid.innerHTML = '<div class="year-empty">Nessuna foto ancora</div>';
-            } else {
-                grid.innerHTML = '';
-                data.photos.forEach(p => addPhotoToGrid(grid, p.key, p.url, year));
-            }
-        } catch (e) {
-            grid.innerHTML = '<div class="year-empty">Nessuna foto ancora</div>';
-        }
-    }
-}
-
-// Tap ovunque sulla pagina chiude la foto girata
-document.addEventListener('click', (e) => {
-    const flipped = document.querySelector('.photo-cell.flipped');
-    if (!flipped) return;
-    if (flipped.contains(e.target)) return;
-    flipped.classList.remove('flipped', 'lifting');
-});
-
-// Carica foto all'avvio
-loadAllPhotos();
 
 /* ══════════════════════════════════════
    ANIMAZIONE
@@ -1564,19 +1174,7 @@ loadAllPhotos();
     $('letterFloat').addEventListener('click',()=>$('letterPopup').classList.add('open'));
     $('closeLetter').addEventListener('click',()=>$('letterPopup').classList.remove('open'));
     $('letterPopup').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('open');});
-
-    // Cuore in fondo → apre lettera a mano
-    $('heartBtn').addEventListener('click',()=>$('handletterPopup').classList.add('open'));
-    $('closeHandletter').addEventListener('click',()=>$('handletterPopup').classList.remove('open'));
-    $('handletterPopup').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('open');});
 })();
 </script>
-
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
-    <img id="lightboxImg" src="" alt="">
-</div>
-
 </body>
 </html>
